@@ -8,7 +8,7 @@ import pl.jwojciechowski.beans.WelcomeCamelBean;
 public class WelcomeRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        from("jetty:http://localhost:8181/welcome")
+        from("jetty:http://0.0.0.0:8181/welcome")
                 .bean(WelcomeCamelBean.class);
     }
 }

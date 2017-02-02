@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class WelcomeCamelBean {
     public String process() {
-        return "Welcome!";
+        return "Welcome to scanner-app!";
     }
 }
