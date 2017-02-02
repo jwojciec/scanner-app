@@ -1,0 +1,34 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.1.RELEASE'
+        camelVersion = '2.18.2'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'scanner-app'
+    version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    compile group: 'org.apache.camel', name: 'camel-spring-boot-starter', version: camelVersion
+    compile group: 'org.apache.camel', name: 'camel-jetty', version: camelVersion
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
