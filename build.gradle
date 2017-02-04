@@ -8,19 +8,23 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
 
 jar {
     baseName = 'scanner-app'
     version = '0.0.1-SNAPSHOT'
 }
 
+group = 'pl.jwojciechowski'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -31,4 +35,15 @@ dependencies {
     compile group: 'org.apache.camel', name: 'camel-spring-boot-starter', version: camelVersion
     compile group: 'org.apache.camel', name: 'camel-jetty', version: camelVersion
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    applicationName = jar.baseName
+    dockerfile = file('Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
 }
